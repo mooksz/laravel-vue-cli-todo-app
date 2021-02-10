@@ -31,8 +31,7 @@ export default {
                 body: JSON.stringify({ item: this.item }),
             })
                 .then(response => response.json())
-                .then(json => {
-                    console.log(json);
+                .then(() => {
                     this.$emit('itemAdded', {
                         name: this.item.name,
                         completed: false,
