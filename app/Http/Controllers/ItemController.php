@@ -77,14 +77,15 @@ class ItemController extends Controller
         $existingItem = Item::find($id);
 
         if ( $existingItem ) {
+          $existingItem->name = $request->item["name"];
           $existingItem->completed = $request->item["completed"] ? true : false;
           $existingItem->completed_at = $request->item["completed"] ? Carbon::now() : null;
           $existingItem->save();
 
-          return $existingItem;
+          return response()->json($existingItem);
         }
 
-        return "Item not found";
+        return response()->json(["error" => "Item not found"]);
     }
 
     /**
@@ -99,9 +100,9 @@ class ItemController extends Controller
 
         if ( $existingItem ) {
           $existingItem->delete();
-          return "Item {$id} was succesfully deleted";
+          return response()->json(["succes" => "Item {$id} was succesfully deleted"]);
         }
 
-        return "Item not found";
+        return response()->json(["error" => "Item not found"]);
     }
 }
